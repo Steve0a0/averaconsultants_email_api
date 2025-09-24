@@ -3,30 +3,27 @@ const cors = require("cors");
 const nodemailer = require("nodemailer");
 
 const app = express();
-const PORT = 5000; // change if you want
+const PORT = 5000;
 
 // Middleware
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// --- Hardcoded email config ---
-const TO_EMAIL = "stephenangeloirl@gmail.com"; // Receiver (your inbox)
+const TO_EMAIL = "teamwork@averaconsultants.com";
 
-// Replace these with your actual mail provider + credentials
 const transporter = nodemailer.createTransport({
-  host: "smtp.gmail.com", // Gmail SMTP
+  host: "smtp.gmail.com", 
   port: 465,
-  secure: true,           // true = 465, false = 587
+  secure: true, 
   auth: {
-    user: "stephenangeloirl@gmail.com",        // your email
-    pass: "vgxagdqulwhqabss",          // Gmail App Password (not normal password!)
+    user: "no-reply@averaconsultants.com", 
+    pass: "tfwrdpqusdlhxsla", 
   },
 });
 
-// --- Routes ---
 app.get("/", (_req, res) => {
-  res.send("Email API is running ✅");
+  res.send("Email API is running");
 });
 
 app.post("/send-email", async (req, res) => {
@@ -41,10 +38,10 @@ app.post("/send-email", async (req, res) => {
 
   try {
   await transporter.sendMail({
-    from: `Avera Website <teamwork@averaconsultants.com>`, // always send from your account
-    replyTo: email, // visitor email goes here
+    from: `Avera Website <teamwork@averaconsultants.com>`,
+    replyTo: email,
     to: TO_EMAIL,
-    subject: `📩 New Contact Form: ${service} (from ${name})`, // easy to spot in inbox
+    subject: `New Contact Form: ${service} (from ${name})`, 
     text: `
 New Contact Form Submission
 
@@ -58,7 +55,7 @@ Search Tags: [Avera-Contact] [${service}] [${role}]
     `,
     html: `
       <div style="font-family: Arial, sans-serif; line-height: 1.6; color: #333;">
-        <h2 style="color: #d37650; margin-bottom: 10px;">📩 New Contact Form Submission</h2>
+        <h2 style="color: #d37650; margin-bottom: 10px;">New Contact Form Submission</h2>
         
         <table style="width:100%; border-collapse: collapse;">
           <tr>
@@ -97,16 +94,13 @@ Search Tags: [Avera-Contact] [${service}] [${role}]
   } catch (err) {
     console.error("Error sending email:", err);
 
-    // Return the exact error message so you can see it in Postman
     res.status(500).json({
       success: false,
       message: "Failed to send email.",
-      error: err.message, // 👈 Add this
+      error: err.message,
     });
   }
 });
-
-
 app.listen(PORT, () => {
   console.log(`Server running at http://localhost:${PORT}`);
 });

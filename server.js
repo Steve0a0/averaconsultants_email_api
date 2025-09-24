@@ -14,8 +14,8 @@ const TO_EMAIL = "teamwork@averaconsultants.com";
 
 const transporter = nodemailer.createTransport({
   host: "smtp.gmail.com", 
-  port: 465,
-  secure: true, 
+  port: 587,
+  secure: false, 
   auth: {
     user: "no-reply@averaconsultants.com", 
     pass: "tfwrdpqusdlhxsla", 

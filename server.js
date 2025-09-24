@@ -13,7 +13,9 @@ app.use(express.urlencoded({ extended: true }));
 const TO_EMAIL = "teamwork@averaconsultants.com";
 
 const transporter = nodemailer.createTransport({
-  service:"gmail",
+  host: "smtp.gmail.com",
+  port: 587,        // ✅ TLS port (works on Railway)
+  secure: false, 
   auth: {
     user: "no-reply@averaconsultants.com", 
     pass: "tfwrdpqusdlhxsla", 

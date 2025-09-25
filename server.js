@@ -5,7 +5,6 @@ const nodemailer = require("nodemailer");
 const app = express();
 const PORT = 5000;
 
-// Middleware
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -13,9 +12,7 @@ app.use(express.urlencoded({ extended: true }));
 const TO_EMAIL = "teamwork@averaconsultants.com";
 
 const transporter = nodemailer.createTransport({
-  host: "smtp.gmail.com",
-  port: 587,        // ✅ TLS port (works on Railway)
-  secure: false, 
+  service: "Gmail", 
   auth: {
     user: "no-reply@averaconsultants.com", 
     pass: "tfwrdpqusdlhxsla", 
